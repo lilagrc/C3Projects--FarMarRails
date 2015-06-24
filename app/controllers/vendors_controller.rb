@@ -1,39 +1,42 @@
 class VendorsController < ApplicationController
 
   def index
+    @vendors = Vendor.all
   end
 
   def create
+    @vendor = Vendor.create(create_params[:vendor])
+
+    redirect_to market_portal_path
   end
 
   def new
-  end
-
-  def edit
+    @vendor = Vendor.new
   end
 
   def show
+    @vendor = Vendor.find(params[:id])
+  end
+
+  def edit
+    show
   end
 
   def update
-  end
+    show
+    @vendor.update(create_params[:vendor])
 
-  def index
-  end
-
-  def create
-  end
-
-  def new
-  end
-
-  def edit
-  end
-
-  def show
+    redirect_to market_portal_path
   end
 
   def destroy
   end
+
+  private
+
+  def create_params
+    params.permit(vendor: [:name, :num_employees, :market_id])
+  end
+
 
 end
